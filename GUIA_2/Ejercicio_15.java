@@ -5,6 +5,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// Realice un algoritmo que calcule las notas de un grupo de 25 alumnos, guardando
+// nombre, apellido y 4 notas por cada uno, calcular promedio, e imprimir todos los
+// datos en pantalla. utilizando matrices.
+
 public class Ejercicio_15 {
     public static void main(String[] args) {
         final int NUM_STUDENTS = 25;
