@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SumaController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TasksController;
+use App\Http\Controllers\TaskViewController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -44,14 +46,14 @@ Route::post('/suma', [SumaController::class, 'suma']);
 
 // Routers
 // Forma tradicional de hacerlo
-Route::get('/api', [TasksController::class, 'getTasks']);
+// Route::get('/api', [TasksController::class, 'getTasks']);
 
-// Con apiResource, el automaticamente mapea las funciones con cada peticion, GET, POST, DELETE, etc
-// de acuerdo a la siguiente tabla:
+// Views
+Route::get('/app/tasks', [TaskViewController::class, 'index']);
+Route::get('/app/tasks/create', [TaskViewController::class, 'createView']);
+Route::get('/app/tasks/delete', [TaskViewController::class, 'deleteView']);
+Route::get('/app/tasks/update', [TaskViewController::class, 'updateView']);
 
-// GET    /api/tasks        -> index()
-// POST   /api/tasks        -> store()
-// GET    /api/tasks/{id}   -> show($id)
-// PUT    /api/tasks/{id}   -> update(Request $request, $id)
-// DELETE /api/tasks/{id}   -> destroy($id)
-Route::apiResource('/api/tasks', TasksController::class);
+Route::post('/app/tasks/create', [TaskViewController::class, 'create']);
+Route::delete('/app/tasks/delete', [TaskViewController::class, 'delete']);
+Route::put('/app/tasks/update', [TaskViewController::class, 'update']);
