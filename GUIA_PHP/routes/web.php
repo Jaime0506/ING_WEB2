@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SumaController;
+use App\Http\Controllers\TasksController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,3 +41,17 @@ Route::get('/suma', [SumaController::class, 'index']);
 
 // Con controllador: Automaticamente se pasan la Requests
 Route::post('/suma', [SumaController::class, 'suma']);
+
+// Routers
+// Forma tradicional de hacerlo
+Route::get('/api', [TasksController::class, 'getTasks']);
+
+// Con apiResource, el automaticamente mapea las funciones con cada peticion, GET, POST, DELETE, etc
+// de acuerdo a la siguiente tabla:
+
+// GET    /api/tasks        -> index()
+// POST   /api/tasks        -> store()
+// GET    /api/tasks/{id}   -> show($id)
+// PUT    /api/tasks/{id}   -> update(Request $request, $id)
+// DELETE /api/tasks/{id}   -> destroy($id)
+Route::apiResource('/api/tasks', TasksController::class);

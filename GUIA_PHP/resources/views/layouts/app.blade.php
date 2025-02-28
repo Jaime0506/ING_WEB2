@@ -1239,8 +1239,6 @@
     <div class="bg-white flex justify-center items-center">
         @yield('content')
     </div>
-
-    <h2>prueba de plantilla</h2>
 </body>
 
 </html>
