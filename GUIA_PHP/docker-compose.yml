@@ -1,10 +1,10 @@
 services:
   myDB:
     image: postgres
-    container_name: my-database
+    container_name: laravel-php
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       - POSTGRES_USER=alumno
       - POSTGRES_PASSWORD=123456
