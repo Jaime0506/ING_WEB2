@@ -11,23 +11,27 @@
         <h:outputStylesheet name="css/productos.css" />
         
         <!-- Overlay de Carga -->
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-            <div class="loading-spinner"></div>
-        </p:dialog>
+        <h:form>
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <div class="loading-spinner"></div>
+            </p:dialog>
+        </h:form>
         
         <!-- Notificaciones -->
-        <p:outputPanel id="notificacion">
-            <p:outputPanel rendered="#{not empty facesContext.messageList}" styleClass="notificacion #{facesContext.maximumSeverity.ordinal == 0 ? 'notificacion-success' : (facesContext.maximumSeverity.ordinal == 1 ? 'notificacion-warning' : 'notificacion-error')}">
-                <i class="pi #{facesContext.maximumSeverity.ordinal == 0 ? 'pi-check-circle' : (facesContext.maximumSeverity.ordinal == 1 ? 'pi-exclamation-triangle' : 'pi-times-circle')} notificacion-icono"></i>
-                <div class="notificacion-contenido">
-                    <div class="notificacion-titulo">
-                        #{facesContext.maximumSeverity.ordinal == 0 ? 'Operación Exitosa' : (facesContext.maximumSeverity.ordinal == 1 ? 'Advertencia' : 'Error')}
+        <h:form>
+            <p:outputPanel id="notificacion">
+                <p:outputPanel rendered="#{not empty facesContext.messageList}" styleClass="notificacion #{facesContext.maximumSeverity.ordinal == 0 ? 'notificacion-success' : (facesContext.maximumSeverity.ordinal == 1 ? 'notificacion-warning' : 'notificacion-error')}">
+                    <i class="pi #{facesContext.maximumSeverity.ordinal == 0 ? 'pi-check-circle' : (facesContext.maximumSeverity.ordinal == 1 ? 'pi-exclamation-triangle' : 'pi-times-circle')} notificacion-icono"></i>
+                    <div class="notificacion-contenido">
+                        <div class="notificacion-titulo">
+                            #{facesContext.maximumSeverity.ordinal == 0 ? 'Operación Exitosa' : (facesContext.maximumSeverity.ordinal == 1 ? 'Advertencia' : 'Error')}
+                        </div>
+                        <p:messages showDetail="false" closable="true" />
                     </div>
-                    <p:messages showDetail="false" closable="true" />
-                </div>
+                </p:outputPanel>
             </p:outputPanel>
-        </p:outputPanel>
+        </h:form>
         
         <!-- Formulario Principal -->
         <h:form id="mainForm">
@@ -49,23 +53,7 @@
                                         actionListener="#{productoController.prepararNuevoProducto()}"
                                         update=":productoForm:manageProdContent" 
                                         oncomplete="PF('productoDialog').show()"
-                                        styleClass="ui-button-success" />
-                        
-                        <p:commandButton value="Exportar PDF" icon="pi pi-file-pdf"
-                                        styleClass="ui-button-secondary" ajax="false">
-                            <p:dataExporter type="pdf" target="productTable" fileName="productos"/>
-                        </p:commandButton>
-                        
-                        <p:commandButton value="Exportar Excel" icon="pi pi-file-excel"
-                                        styleClass="ui-button-secondary" ajax="false">
-                            <p:dataExporter type="xlsx" target="productTable" fileName="productos"/>
-                        </p:commandButton>
-                    </div>
-                    
-                    <div class="busqueda-container">
-                        <p:inputText id="globalFilter" placeholder="Buscar producto..." />
-                        <p:commandButton icon="pi pi-search" styleClass="ui-button-secondary"
-                                       onclick="PF('productTable').filter()" />
+                                        styleClass="ui-button-success" />                       
                     </div>
                 </div>
                 
