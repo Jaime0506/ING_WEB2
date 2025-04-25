@@ -7,11 +7,38 @@
       xmlns:pt="jakarta.faces.passthrough"
       xmlns:cc="jakarta.faces.composite"
       xmlns:c="jakarta.tags.core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:fn="jakarta.tags.functions">
-    <h:head>
-        <title>Mi Proyecto JSF 3</title>
-    </h:head>
-    <h:body>
-        <h1>Hola, Mundo! primera vista</h1>
-    </h:body>
+
+<ui:composition template="/WEB-INF/template.xhtml">
+    <ui:define name="title">Página de Inicio</ui:define>
+    
+    <ui:define name="content">
+        <div class="card">
+            <p:panel header="Bienvenido a la Tienda Online">
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <h1>Sistema de Gestión de Productos</h1>
+                        <p class="text-lg">Aplicación JSF con PrimeFaces y PrimeFlex funcionando correctamente.</p>
+                        <p:link outcome="/productos/index" value="Gestionar Productos" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left mt-3">
+                            <i class="pi pi-shopping-bag mr-2" />
+                        </p:link>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <p:card title="Funcionalidades" styleClass="shadow-2">
+                            <ul>
+                                <li>Listado de productos con paginación</li>
+                                <li>Filtrado y ordenamiento</li>
+                                <li>Creación de nuevos productos</li>
+                                <li>Edición de productos existentes</li>
+                                <li>Eliminación de productos (individual o múltiple)</li>
+                                <li>Búsqueda de productos</li>
+                            </ul>
+                        </p:card>
+                    </div>
+                </div>
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>
 </html>
