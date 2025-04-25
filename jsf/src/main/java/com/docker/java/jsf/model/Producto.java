@@ -13,19 +13,19 @@ public class Producto implements Serializable {
     private BigDecimal precio;
     private Integer stock;
     private String categoria;
-    private String imagenUrl;
+    private String imagen;
     
     public Producto() {
     }
     
-    public Producto(Long id, String nombre, String descripcion, BigDecimal precio, Integer stock, String categoria, String imagenUrl) {
+    public Producto(Long id, String nombre, String descripcion, BigDecimal precio, Integer stock, String categoria, String imagen) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.categoria = categoria;
-        this.imagenUrl = imagenUrl;
+        this.imagen = imagen;
     }
 
     public Long getId() {
@@ -76,12 +76,12 @@ public class Producto implements Serializable {
         this.categoria = categoria;
     }
 
-    public String getImagenUrl() {
-        return imagenUrl;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setImagenUrl(String imagenUrl) {
-        this.imagenUrl = imagenUrl;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
     @Override

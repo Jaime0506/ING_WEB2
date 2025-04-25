@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><ui:insert name="titulo">Sistema de Gestión</ui:insert></title>
+    <h:outputStylesheet library="webjars" name="primeflex/3.3.0/primeflex.min.css" />
+    <h:outputStylesheet library="css" name="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <ui:insert name="head" />
+</h:head>
+
+<h:body>
+    <div class="min-h-screen flex flex-column">
+        <header class="bg-primary shadow-3">
+            <div class="flex justify-content-between align-items-center px-4 py-3">
+                <h:link outcome="/index" styleClass="no-underline">
+                    <div class="flex align-items-center">
+                        <i class="pi pi-shopping-cart text-white mr-2" style="font-size: 1.5rem;"></i>
+                        <h1 class="text-white m-0">Sistema de Gestión</h1>
+                    </div>
+                </h:link>
+                <p:menubar styleClass="border-none bg-transparent">
+                    <p:menuitem value="Inicio" outcome="/index" icon="pi pi-home" />
+                    <p:menuitem value="Productos" outcome="/productos/index" icon="pi pi-shopping-bag" />
+                    <p:menuitem value="Categorías" icon="pi pi-tags" disabled="true" />
+                    <p:menuitem value="Usuarios" icon="pi pi-users" disabled="true" />
+                    <p:menuitem value="Reportes" icon="pi pi-chart-bar" disabled="true" />
+                </p:menubar>
+                <div>
+                    <p:button value="Perfil" icon="pi pi-user" styleClass="ui-button-secondary mr-2" />
+                    <p:button value="Salir" icon="pi pi-sign-out" styleClass="ui-button-danger" />
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-grow-1 p-4 bg-light">
+            <div class="card mb-3 shadow-1 border-round">
+                <div class="card-body">
+                    <ui:insert name="breadcrumb">
+                        <p:breadCrumb>
+                            <p:menuitem value="Inicio" url="/index" />
+                            <p:menuitem value="Página Actual" />
+                        </p:breadCrumb>
+                    </ui:insert>
+                </div>
+            </div>
+            
+            <ui:insert name="contenido">
+                Contenido predeterminado
+            </ui:insert>
+        </div>
+
+        <footer class="bg-gray-800 py-3 px-4 text-white">
+            <div class="flex justify-content-between align-items-center">
+                <div>
+                    <p class="m-0">© 2024 Sistema de Gestión - Todos los derechos reservados</p>
+                </div>
+                <div>
+                    <p:link value="Términos y Condiciones" styleClass="text-white mr-3" />
+                    <p:link value="Política de Privacidad" styleClass="text-white mr-3" />
+                    <p:link value="Contacto" styleClass="text-white" />
+                </div>
+                <div>
+                    <i class="pi pi-facebook mx-2" style="font-size: 1.2rem;"></i>
+                    <i class="pi pi-twitter mx-2" style="font-size: 1.2rem;"></i>
+                    <i class="pi pi-instagram mx-2" style="font-size: 1.2rem;"></i>
+                    <i class="pi pi-linkedin mx-2" style="font-size: 1.2rem;"></i>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+        <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary" icon="pi pi-times" />
+    </p:confirmDialog>
+    
+    <h:outputScript library="js" name="scripts.js" />
+</h:body>
+</html> 

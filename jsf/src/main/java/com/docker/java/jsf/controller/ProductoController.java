@@ -11,6 +11,8 @@ import jakarta.inject.Named;
 import org.primefaces.PrimeFaces;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Named
@@ -24,61 +26,76 @@ public class ProductoController implements Serializable {
 
     private List<Producto> productos;
     private Producto productoSeleccionado;
-    private List<Producto> productosSeleccionados;
+    private List<Producto> productosFiltrados;
     private String terminoBusqueda;
+    private String viewMode = "table"; // Valores posibles: "table", "grid"
+    private List<String> categorias;
 
     @PostConstruct
     public void init() {
         this.productos = productoService.getProductos();
         this.productoSeleccionado = new Producto();
+        this.productosFiltrados = new ArrayList<>();
+        this.categorias = Arrays.asList("Electrónicos", "Ropa", "Libros", "Hogar", "Juguetes", "Deportes", "Alimentos", "Otros");
     }
 
     public void cargarProductos() {
         this.productos = productoService.getProductos();
     }
 
-    public void abrirNuevo() {
+    public void prepararNuevoProducto() {
         this.productoSeleccionado = new Producto();
     }
 
+    public String getViewMode() {
+        return viewMode;
+    }
+    
+    public void setViewMode(String viewMode) {
+        this.viewMode = viewMode;
+    }
+
     public void guardarProducto() {
-        if (this.productoSeleccionado.getId() == null) {
-            productoService.agregarProducto(this.productoSeleccionado);
+        try {
+            if (this.productoSeleccionado.getId() == null) {
+                productoService.agregarProducto(this.productoSeleccionado);
+                FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto Agregado", "El producto ha sido agregado correctamente."));
+            } else {
+                productoService.actualizarProducto(this.productoSeleccionado);
+                FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto Actualizado", "El producto ha sido actualizado correctamente."));
+            }
+            
+            this.productos = productoService.getProductos();
+        } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Producto Agregado", "El producto ha sido agregado correctamente."));
-        } else {
-            productoService.actualizarProducto(this.productoSeleccionado);
-            FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage("Producto Actualizado", "El producto ha sido actualizado correctamente."));
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrió un error al guardar el producto: " + e.getMessage()));
         }
-        
-        this.productos = productoService.getProductos();
-        PrimeFaces.current().executeScript("PF('productoDialog').hide()");
     }
 
     public void eliminarProducto() {
-        productoService.eliminarProducto(this.productoSeleccionado.getId());
-        this.productoSeleccionado = null;
-        this.productos = productoService.getProductos();
-        FacesContext.getCurrentInstance().addMessage(null, 
-            new FacesMessage("Producto Eliminado", "El producto ha sido eliminado correctamente."));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-productos");
-    }
-
-    public void eliminarProductosSeleccionados() {
-        for (Producto producto : this.productosSeleccionados) {
-            productoService.eliminarProducto(producto.getId());
+        try {
+            productoService.eliminarProducto(this.productoSeleccionado.getId());
+            this.productos = productoService.getProductos();
+            FacesContext.getCurrentInstance().addMessage(null, 
+                new FacesMessage(FacesMessage.SEVERITY_INFO, "Producto Eliminado", "El producto ha sido eliminado correctamente."));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, 
+                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrió un error al eliminar el producto: " + e.getMessage()));
         }
-        this.productosSeleccionados = null;
-        this.productos = productoService.getProductos();
-        FacesContext.getCurrentInstance().addMessage(null, 
-            new FacesMessage("Productos Eliminados", "Los productos seleccionados han sido eliminados."));
-        PrimeFaces.current().ajax().update("form:messages", "form:dt-productos");
-        PrimeFaces.current().executeScript("PF('dtProductos').clearFilters()");
     }
 
     public void buscarProductos() {
-        this.productos = productoService.buscarProductos(this.terminoBusqueda);
+        if (terminoBusqueda != null && !terminoBusqueda.trim().isEmpty()) {
+            this.productos = productoService.buscarProductos(this.terminoBusqueda);
+            if (this.productos.isEmpty()) {
+                FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Sin resultados", "No se encontraron productos que coincidan con: " + this.terminoBusqueda));
+            }
+        } else {
+            this.productos = productoService.getProductos();
+        }
     }
 
     public List<Producto> getProductos() {
@@ -97,12 +114,12 @@ public class ProductoController implements Serializable {
         this.productoSeleccionado = productoSeleccionado;
     }
 
-    public List<Producto> getProductosSeleccionados() {
-        return productosSeleccionados;
+    public List<Producto> getProductosFiltrados() {
+        return productosFiltrados;
     }
 
-    public void setProductosSeleccionados(List<Producto> productosSeleccionados) {
-        this.productosSeleccionados = productosSeleccionados;
+    public void setProductosFiltrados(List<Producto> productosFiltrados) {
+        this.productosFiltrados = productosFiltrados;
     }
 
     public String getTerminoBusqueda() {
@@ -111,5 +128,9 @@ public class ProductoController implements Serializable {
 
     public void setTerminoBusqueda(String terminoBusqueda) {
         this.terminoBusqueda = terminoBusqueda;
+    }
+    
+    public List<String> getCategorias() {
+        return categorias;
     }
 } 
