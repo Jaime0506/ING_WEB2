@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.layout-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.layout-topbar {
+    background-color: var(--surface-a);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.layout-topbar .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.layout-topbar .menu {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Content Styles */
+.layout-main {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--surface-ground);
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+/* DataTable Styles */
+.products-table {
+    margin-top: 1rem;
+}
+
+.products-table .ui-button {
+    margin-right: 0.5rem;
+}
+
+.products-table .p-column-title {
+    font-weight: 600;
+}
+
+/* Form Styles */
+.field {
+    margin-bottom: 1.5rem;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.ui-fluid .field input,
+.ui-fluid .field textarea {
+    width: 100%;
+}
+
+/* Button Styles */
+.rounded-button {
+    border-radius: 2rem;
+}
+
+.edit-button {
+    margin-right: 0.5rem;
+}
+
+/* Dialog Styles */
+.ui-dialog .ui-dialog-content {
+    padding: 2rem;
+}
+
+.ui-dialog .field:last-child {
+    margin-bottom: 0;
+}
+
+/* Footer Styles */
+.layout-footer {
+    background-color: var(--surface-a);
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-color);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    .layout-main {
+        padding: 1rem;
+    }
+    
+    .card {
+        padding: 1rem;
+    }
+    
+    .products-table {
+        font-size: 0.9rem;
+    }
+} 

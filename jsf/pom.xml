@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.2.3</version>
+		<relativePath/>
 	</parent>
 	<groupId>com.docker.java</groupId>
 	<artifactId>jsf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jsf</name>
-	<description>jsf</description>
+	<description>JSF Application with Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,6 +30,8 @@
 		<java.version>17</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<joinfaces.version>5.2.3</joinfaces.version>
+		<primefaces.version>14.0.6</primefaces.version>
 	</properties>
 
 	<dependencyManagement>
@@ -37,7 +39,7 @@
 			<dependency>
 				<groupId>org.joinfaces</groupId>
 				<artifactId>joinfaces-platform</artifactId>
-				<version>5.4.0</version>
+				<version>${joinfaces.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -45,6 +47,18 @@
 	</dependencyManagement>
 
 	<dependencies>
+		<!-- Spring Boot -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- JPA -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
 		<!-- JSF -->
 		<dependency>
 			<groupId>org.joinfaces</groupId>
@@ -55,7 +69,7 @@
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>14.0.6</version>
+			<version>${primefaces.version}</version>
 			<classifier>jakarta</classifier>
 		</dependency>
 
@@ -66,27 +80,22 @@
 			<version>3.3.0</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-<!--		</dependency>-->
+		<!-- jQuery -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.7.1</version>
 		</dependency>
 
+		<!-- Development Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+
+		<!-- Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -99,6 +108,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
