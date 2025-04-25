@@ -1,41 +1,51 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core"
-      xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><ui:insert name="title">Aplicación JSF</ui:insert></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title><ui:insert name="title">Mi Tienda Online JSF</ui:insert></title>
+    
+    <!-- PrimeFaces CSS -->
     <h:outputStylesheet library="webjars" name="primeflex/3.3.0/primeflex.min.css" />
-    <h:outputStylesheet library="css" name="styles.css" />
+    
+    <!-- Custom CSS -->
+    <h:outputStylesheet name="css/styles.css" />
+    
+    <!-- PrimeFaces Theme -->
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces"/>
 </h:head>
 
 <h:body>
-    <div class="min-h-screen flex flex-column">
-        <header class="bg-primary p-3">
-            <div class="flex justify-content-between align-items-center">
-                <h:link outcome="/index">
-                    <h1 class="text-white">Tienda Online</h1>
-                </h:link>
-                <p:menubar>
-                    <p:menuitem value="Inicio" outcome="/index" icon="pi pi-home" />
-                    <p:menuitem value="Productos" outcome="/productos/index" icon="pi pi-shopping-bag" />
-                </p:menubar>
+    <div class="layout-wrapper">
+        <div class="layout-topbar">
+            <h:link outcome="/index" styleClass="logo">
+                Mi Tienda Online JSF
+            </h:link>
+            
+            <div class="menu">
+                <h:form>
+                    <p:menubar>
+                        <p:menuitem value="Inicio" outcome="/index" icon="pi pi-home"/>
+                        <p:menuitem value="Productos" outcome="/productos" icon="pi pi-shopping-cart"/>
+                    </p:menubar>
+                </h:form>
             </div>
-        </header>
+        </div>
 
-        <div class="flex-grow-1 p-3">
+        <div class="layout-main">
             <ui:insert name="content">
-                Contenido predeterminado
+                Contenido por defecto
             </ui:insert>
         </div>
 
-        <footer class="bg-gray-800 p-3 text-white text-center">
-            <p>© 2024 Mi Tienda Online JSF</p>
-        </footer>
+        <div class="layout-footer">
+            <p>© 2024 Mi Tienda Online JSF. Todos los derechos reservados.</p>
+        </div>
     </div>
 </h:body>
 </html> 
